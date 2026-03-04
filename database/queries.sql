@@ -82,3 +82,13 @@ FROM cities c
 LEFT JOIN places p
 ON c.city_id = p.city_id
 GROUP BY c.city_id;
+
+USE travel_planner;
+
+UPDATE users SET name = 'Lakshita ingale' WHERE user_id = 2;
+UPDATE users SET name = 'Anika prasad' WHERE user_id = 3;
+UPDATE users SET name = 'Parth samale' WHERE user_id = 4;
+
+UPDATE users SET email = 'lakshita@example.com' WHERE user_id = 2;
+UPDATE users SET email = 'anika@example.com' WHERE user_id = 3;
+UPDATE users SET email = 'parth@example.com' WHERE user_id = 4;

@@ -1,5 +1,5 @@
 -- Create database
-CREATE DATABASE travel_planner;
+CREATE DATABASE IF NOT EXISTS travel_planner;
 USE travel_planner;
 
 -- Countries table
