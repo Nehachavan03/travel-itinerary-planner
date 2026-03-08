@@ -1,3 +1,5 @@
+### --- AUTHENTICATION ---
+
 ### Register User
 POST http://localhost:5000/auth/register
 Content-Type: application/json
@@ -17,34 +19,59 @@ Content-Type: application/json
   "password": "password123"
 }
 
-### --- DEMO USER TESTS ---
+### --- SMART TRIP GENERATION ---
 
-### 1. Login with Demo User
-# Expected: Success message, JWT token, and user_id: 9
-POST http://localhost:5000/auth/login
+### Generate a 3-Day Trip to France (Budget: 5000)
+# This will pick a city in France (Paris), find places within budget, and create the itinerary.
+POST http://localhost:5000/itinerary/generate
 Content-Type: application/json
 
 {
-  "email": "demo@example.com",
-  "password": "password123"
+  "user_id": 9,
+  "country_name": "France",
+  "start_date": "2025-07-01",
+  "end_date": "2025-07-03",
+  "budget": 5000
 }
 
-### 2. Get Demo User's Itineraries
-# Expected: List containing the Mumbai trip (itinerary_id: 9)
-GET http://localhost:5000/itinerary/9
+### --- REVIEWS ---
 
-### 3. Chatbot - Plan for Demo User
+### Add a Review for Eiffel Tower (place_id: 51)
+POST http://localhost:5000/reviews
+Content-Type: application/json
+
+{
+  "user_id": 9,
+  "place_id": 51,
+  "rating": 5,
+  "comment": "An absolute masterpiece of architecture! Must see at night."
+}
+
+### Get Reviews for a Place (place_id: 51)
+GET http://localhost:5000/reviews/51
+
+### --- CHATBOT ---
+
+### Chatbot - Plan a 3-day trip in Tokyo
 POST http://localhost:5000/chatbot
 Content-Type: application/json
 
 {
-  "message": "I am the demo user, plan a 2 day trip to Tokyo"
+  "message": "plan a 3 day trip in Tokyo"
 }
 
-### --- GENERAL TESTS ---
+### --- EXPLORE DATA ---
 
-### Get Cities by Country
-GET http://localhost:5000/cities/IN
+### Get All Countries
+GET http://localhost:5000/countries
 
-### Get Itinerary Details (Fix Verification)
+### Get Cities in Italy
+GET http://localhost:5000/cities/IT
+
+### Get Places in Rome (city_id: 21)
+# You may need to check the cities list for the correct ID
+GET http://localhost:5000/places/21
+
+### Get Itinerary Details
+# Replace {itinerary_id} with the ID from the "Generate Trip" response
 GET http://localhost:5000/itinerary/details/1

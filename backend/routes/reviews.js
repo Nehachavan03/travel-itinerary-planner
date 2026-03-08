@@ -23,4 +23,23 @@ router.get("/:place_id", (req, res) => {
   });
 });
 
+// POST a new review
+router.post("/", (req, res) => {
+  const { user_id, place_id, rating, comment } = req.body;
+
+  if (!user_id || !place_id || !rating) {
+    return res.status(400).send("Missing required fields");
+  }
+
+  const query = "INSERT INTO reviews (user_id, place_id, rating, comment, review_date) VALUES (?, ?, ?, ?, CURRENT_DATE)";
+  db.query(query, [user_id, place_id, rating, comment], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Database error");
+    } else {
+      res.status(201).json({ message: "Review added successfully", review_id: result.insertId });
+    }
+  });
+});
+
 module.exports = router;

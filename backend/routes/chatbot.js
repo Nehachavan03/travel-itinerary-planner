@@ -52,7 +52,7 @@ router.post("/", (req, res) => {
       LIMIT ?
     `;
 
-    db.query(placeQuery, [city.city_id, days * 3], (err, places) => {
+    db.query(placeQuery, [city.city_id, days * 5], (err, places) => {
 
       if (err) return res.status(500).json({ reply: "Database error" });
 
@@ -70,16 +70,18 @@ router.post("/", (req, res) => {
 
         let dayPlan = [];
 
+        // Try to add 2-3 places per day
         for (let i = 0; i < 3 && index < places.length; i++) {
           dayPlan.push(places[index]);
           index++;
         }
 
-        itinerary.push({
-          day: d,
-          places: dayPlan
-        });
-
+        if (dayPlan.length > 0) {
+          itinerary.push({
+            day: d,
+            places: dayPlan
+          });
+        }
       }
 
       res.json({

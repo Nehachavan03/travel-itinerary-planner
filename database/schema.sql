@@ -40,6 +40,7 @@ CREATE TABLE places (
     description TEXT,
     address VARCHAR(255),
     category_id INT NOT NULL,
+    estimated_cost FLOAT DEFAULT 0,
     FOREIGN KEY (city_id) REFERENCES cities(city_id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
@@ -84,3 +85,6 @@ CREATE TABLE reviews (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (place_id) REFERENCES places(place_id)
 );
+
+
+ALTER TABLE places ADD COLUMN estimated_cost FLOAT DEFAULT 0;
